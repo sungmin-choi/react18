@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const Background = styled.div`
@@ -15,7 +15,7 @@ const Background = styled.div`
 
 const ModalContainer = styled.div`
   width: calc(100vw - 32px);
-  height: calc(100vh - 32px);
+  height: calc(var(--vh, 1vh) * 100 - 32px);
   background: rgb(25, 31, 44);
   color: white;
 `;
@@ -39,6 +39,18 @@ export default function Section1() {
   const handleOpenModal = () => {
     setIsOpenModal(true);
   };
+  const setScreenSize = () => {
+    //1. 실제 내용을 보여줄 innerHeight 크기를 100등분 해서 vh 변수에 할당한다.
+    const vh = window.innerHeight * 0.01;
+    //2. 기존에 있던 vh 단위를 재정의 한 vh값으로 변경해준다.
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
+  };
+
+  useEffect(() => {
+    setScreenSize();
+    window.addEventListener("resize", () => setScreenSize());
+    return () => window.removeEventListener("resize", setScreenSize);
+  }, []);
 
   return (
     <section>
