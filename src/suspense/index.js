@@ -2,7 +2,7 @@ import axios from "axios";
 import { Suspense } from "react";
 import { useQuery } from "react-query";
 import { ErrorBoundary } from "./errorboundary";
-
+// 깃허브에 안올라간 이슈
 const fetchProduct = async () => {
   try {
     const response = await axios.get(
